@@ -1,0 +1,21 @@
+[[package]]
+category = "main"
+description = "Ctypes-based simple MagickWand API binding for Python"
+name = "wand"
+optional = false
+python-versions = "*"
+version = "0.6.6"
+
+[package.extras]
+doc = ["Sphinx (>=2.4.1)"]
+test = ["pytest (>=5.3.5)"]
+
+[metadata]
+content-hash = "1dfcc4d7650b81e68d32820684983a5b5a5f2a75a6d7b3baf57c342fa1047334"
+python-versions = "^3.7"
+
+[metadata.files]
+wand = [
+    {file = "Wand-0.6.6-py2.py3-none-any.whl", hash = "sha256:b752b2c2ee6ce04210da4b2e591013a4d9303fbed3fcbd3fb450930777dcb117"},
+    {file = "Wand-0.6.6.tar.gz", hash = "sha256:540a2da5fb3ada1f0abf6968e0fa01ca7de6cd517f3be5c52d03a4fc8d54d75e"},
+]

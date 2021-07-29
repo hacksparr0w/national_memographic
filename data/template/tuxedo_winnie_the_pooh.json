@@ -1,0 +1,28 @@
+{
+  "image_path": "../image/tuxedo_winnie_the_pooh.png",
+  "text_areas": [
+    {
+      "bounds": [345, 0, 800, 295],
+      "padding": 20,
+      "text": {
+        "align": "center",
+        "color": "#000",
+        "font_path": "../font/montserrat_regular.tf",
+        "line_height": 20,
+        "position": "center center",
+        "size": 20
+      }
+    }, {
+      "bounds": [345, 296, 800, 582],
+      "padding": 20,
+      "text": {
+        "align": "center",
+        "color": "#000",
+        "font_path": "../font/montserrat_regular.tf",
+        "line_height": 20,
+        "position": "center center",
+        "size": 20
+      }
+    }
+  ]
+}
