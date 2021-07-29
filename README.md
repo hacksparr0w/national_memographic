@@ -1,5 +1,3 @@
-# National Memographic
-
 ![Introduction][1]
 
 ## Usage
@@ -17,6 +15,7 @@ captions = (
 )
 
 image = meme.render(template, captions)
+image.transform(resize="x600")
 image.save(filename="intro.png")
 ```
 
