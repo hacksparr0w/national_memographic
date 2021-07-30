@@ -4,33 +4,34 @@ from wand.image import Image
 from wand.drawing import Drawing, FontMetrics
 
 from .common import Dims, Rect
-from .template import TextPosition, TextPositionX, TextPositionY
+from .template import TextAlign, TextPosition, TextPositionX, TextPositionY
 
 
 def draw_bounded_text(
     drawing: Drawing,
     image: Image,
     text: str,
-    bounds: Rect,
-    position: TextPosition
+    align: TextAlign,
+    position: TextPosition,
+    bounds: Rect
 ) -> None:
     previous_font_size = drawing.font_size
     wrapped_text = text
 
-    def get_text_metrics() -> FontMetrics:
-        return drawing.get_font_metrics(
+    ascender = None
+    descender = None
+    text_width = None
+    text_height = None
+
+    while drawing.font_size > 0:
+        metrics = drawing.get_font_metrics(
             image,
             wrapped_text,
             multiline=True
         )
 
-    character_height = None
-    text_width = None
-    text_height = None
-
-    while drawing.font_size > 0:
-        metrics = get_text_metrics()
-        character_height = metrics.character_height
+        ascender = metrics.ascender
+        descender = metrics.descender
         text_width = metrics.text_width
         text_height = metrics.text_height
 
@@ -43,7 +44,12 @@ def draw_bounded_text(
             while columns > 1:
                 columns -= 1
                 wrapped_text = "\n".join(textwrap.wrap(text, columns))
-                metrics = get_text_metrics()
+                metrics = drawing.get_font_metrics(
+                    image,
+                    wrapped_text,
+                    multiline=True
+                )
+
                 text_width = metrics.text_width
 
                 if text_width <= bounds.width:
@@ -68,7 +74,13 @@ def draw_bounded_text(
     elif position.y == TextPositionY.CENTER:
         y += round((bounds.height - text_height) / 2)
 
-    y += round(character_height)
+    lines = wrapped_text.split("\n")
 
-    drawing.text(x, y, wrapped_text)
+    for line in lines:
+        y += round(ascender)
+
+        drawing.text(x, y, line)
+
+        y -= round(descender)
+
     drawing.font_size = previous_font_size

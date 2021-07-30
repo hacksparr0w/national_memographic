@@ -57,8 +57,9 @@ def render(template: Template, captions: Sequence[str]) -> Image:
                     drawing,
                     image,
                     caption,
-                    area.bounds.pad(area.padding),
-                    area.text.position
+                    area.text.align,
+                    area.text.position,
+                    area.bounds.pad(area.padding)
                 )
 
             drawing.draw(image)
