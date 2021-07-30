@@ -79,7 +79,17 @@ def draw_bounded_text(
     for line in lines:
         y += round(ascender)
 
-        drawing.text(x, y, line)
+        metrics = drawing.get_font_metrics(image, line)
+        line_width = metrics.text_width
+
+        dx = 0
+
+        if align == TextAlign.CENTER:
+            dx = round((text_width - line_width) / 2)
+        elif align == TextAlign.RIGHT:
+            dx = round(text_width - line_width)
+
+        drawing.text(x + dx, y, line)
 
         y -= round(descender)
 
