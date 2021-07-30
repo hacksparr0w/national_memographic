@@ -19,8 +19,8 @@ image.transform(resize="x600")
 image.save(filename="intro.png")
 ```
 
-To see all available meme templates, simply execute `meme.load_templates()`
-and try browse through the output list.
+To see all available meme templates, simply execute the
+`meme.load_templates()` function and try browsing through the output list.
 
 ## Roadmap
  - [ ] Implement a general-purpose meme generation library.
