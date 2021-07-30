@@ -3,7 +3,7 @@ import textwrap
 from wand.image import Image
 from wand.drawing import Drawing, FontMetrics
 
-from .common import Dims, Rect
+from .common import Rect
 from .template import TextAlign, TextPosition, TextPositionX, TextPositionY
 
 

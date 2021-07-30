@@ -1,5 +1,8 @@
+from ._cli.cli_group import cli
+
+
 def main():
-    pass
+    cli()
 
 
 if __name__ == "__main__":

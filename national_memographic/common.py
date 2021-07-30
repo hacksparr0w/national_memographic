@@ -1,9 +1,6 @@
 from typing import Tuple
 
 
-Dims = Tuple[int, int]
-
-
 class Rect:
     def __init__(self, x1: int, y1: int, x2: int, y2: int) -> None:
         self.x1 = x1
