@@ -18,7 +18,7 @@ _Note: The actual version of the built package may vary._
 
 ## Usage
 
-### Python Library
+### Library
 
 You can use the core library as a tool for programmatic meme generation. The
 following is a simple API demonstration.

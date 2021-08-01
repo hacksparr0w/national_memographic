@@ -1,4 +1,4 @@
-from ._cli.cli_group import cli
+from ._cli.native.cli import cli
 
 
 def main():

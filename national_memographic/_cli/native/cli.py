@@ -1,8 +1,8 @@
 import click
 
-from .bot_command import bot
-from .generate_command import generate
-from .ls_command import ls
+from ._bot_command import bot
+from ._generate_command import generate
+from ._ls_command import ls
 
 
 @click.group()

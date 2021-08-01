@@ -1,6 +1,6 @@
 import click
 
-from .. import meme
+from ... import meme
 
 
 @click.command()
