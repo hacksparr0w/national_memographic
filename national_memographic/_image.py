@@ -1,27 +1,43 @@
+"""
+An internal module for advanced image manipulation using :mod:`wand`.
+"""
+
 import textwrap
 
-from wand.image import Image
-from wand.drawing import Drawing, FontMetrics
+from wand.image import Image # type: ignore
+from wand.drawing import Drawing # type: ignore
 
 from .common import Rect
 from .template import TextAlign, TextPosition, TextPositionX, TextPositionY
 
 
 def draw_bounded_text(
-    drawing: Drawing,
-    image: Image,
-    text: str,
-    align: TextAlign,
-    position: TextPosition,
-    bounds: Rect
+        drawing: Drawing,
+        image: Image,
+        text: str,
+        align: TextAlign,
+        position: TextPosition,
+        bounds: Rect
 ) -> None:
+    """
+    Draws a text into an area defined by a :class:`Rect` object, resizing and
+    wrapping the text as neccessary.
+
+    :param drawing: the Wand :class:`Drawing` context to be used.
+    :param image: the :class:`Image` object to draw on.
+    :param text: the text to be drawn.
+    :param align: the alignment of the text within the specified bounds.
+    :param position: the position to snap the drawn text to.
+    :param bounds: the area to fit the text into.
+    """
+
     previous_font_size = drawing.font_size
     wrapped_text = text
 
-    ascender = None
-    descender = None
-    text_width = None
-    text_height = None
+    ascender: float
+    descender: float
+    text_width: float
+    text_height: float
 
     while drawing.font_size > 0:
         metrics = drawing.get_font_metrics(
@@ -67,10 +83,10 @@ def draw_bounded_text(
     if position.x == TextPositionX.CENTER:
         x += round((bounds.width - text_width) / 2)
     elif position.x == TextPositionX.RIGHT:
-        x += bounds.width - text_width
+        x += round(bounds.width - text_width)
 
     if position.y == TextPositionY.BOTTOM:
-        y += bounds.height - text_height
+        y += round(bounds.height - text_height)
     elif position.y == TextPositionY.CENTER:
         y += round((bounds.height - text_height) / 2)
 

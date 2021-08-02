@@ -1,3 +1,8 @@
+"""
+A module implementing a version of the generate command that is used by the
+bot for the Twitter CLI app.
+"""
+
 from io import BytesIO
 from typing import List
 
@@ -5,7 +10,6 @@ import click
 
 from ... import meme
 from ..._twitter import media, tweet
-from ..._twitter.session import Session
 from .._error import handle_error
 from .context import Context, pass_context
 
@@ -16,10 +20,15 @@ from .context import Context, pass_context
 @pass_context
 @handle_error
 def generate(context: Context, uid: str, captions: List[str]) -> None:
+    """
+    Generates a meme from a template with the passed UID using the given
+    captions.
+    """
+
     sender = context.sender
     session = context.session
     template = meme.load_template(uid)
-    image = meme.render(template, captions)
+    image = meme.generate(template, captions)
     blob = image.make_blob()
     size = len(blob)
     stream = BytesIO(blob)

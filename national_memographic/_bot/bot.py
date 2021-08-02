@@ -1,11 +1,13 @@
+"""
+A module containing the core bot logic.
+"""
+
 import sys
 import io
 import logging
 import time
 
 from datetime import datetime, timedelta
-
-import click
 
 from .._args import parse
 from .._cli.twitter.cli import cli
@@ -35,7 +37,7 @@ def _process_message(session: Session, message: DirectMessage) -> None:
     sys.stdout = output
 
     try:
-        cli(args=args, prog_name=" ", obj=context)
+        cli(args=args, prog_name=" ", obj=context) # pylint: disable=E1123
     except SystemExit:
         pass
     finally:
@@ -50,23 +52,30 @@ def _process_message(session: Session, message: DirectMessage) -> None:
 
 
 def run(
-    api_key: str,
-    api_secret: str,
-    access_token: str,
-    access_secret: str,
-    bulk_apperception: int = 10
+        api_key: str,
+        api_secret: str,
+        access_token: str,
+        access_secret: str,
+        bulk_apperception: int
 ) -> None:
+    """
+    Runs the main bot request processing loop.
+
+    :param api_key: Twitter API key
+    :param api_secret: Twitter API secret
+    :param access_token: Twitter user access token
+    :param access_secret: Twitter user access secret
+    :param bulk_apperception: a bot's overall intelligence
+    """
+
     if bulk_apperception > 20:
         raise SecurityError("A potential threat to humanity detected")
 
     session = Session(api_key, api_secret, access_token, access_secret)
     me = account.me(session)
 
-    logging.info("Authenticated as @%s", me.screen_name)
-    logging.info(
-        "Running response task once in %s",
-        str(_RESPONSE_TASK_RUN_PERIOD)
-    )
+    logging.info("Authenticated as @{}", me.screen_name)
+    logging.info("Running response task once in {}", _RESPONSE_TASK_RUN_PERIOD)
 
     while True:
         time.sleep(_RESPONSE_TASK_RUN_PERIOD.total_seconds())
@@ -81,11 +90,11 @@ def run(
             if message.created_at < now - _MESSAGE_PROCESSING_TIMEOUT:
                 break
 
-            if message.sender_id == me.id:
+            if message.sender_id == me.user_id:
                 processed[message.recipient_id] = True
                 continue
 
-            if message.recipient_id == me.id:
+            if message.recipient_id == me.user_id:
                 if processed.get(message.sender_id):
                     continue
 
@@ -94,6 +103,6 @@ def run(
             processed[message.sender_id] = True
 
         logging.info(
-            "Processed total of %d message(s) during this period.",
+            "Processed total of {} message(s) during this period.",
             total
         )

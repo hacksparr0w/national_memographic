@@ -1,3 +1,8 @@
+"""
+A module that binds all of the commands for the terminal CLI app together into
+one command group.
+"""
+
 import click
 
 from ._bot_command import bot
@@ -6,8 +11,10 @@ from ._ls_command import ls
 
 
 @click.group()
-def cli():
-    pass
+def cli() -> None:
+    """
+    The main terminal CLI command group.
+    """
 
 
 cli.add_command(bot)

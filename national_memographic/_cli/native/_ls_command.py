@@ -1,3 +1,8 @@
+"""
+A module implementing a version of the list command that is used in a
+terminal.
+"""
+
 import click
 
 from ... import meme
@@ -6,7 +11,7 @@ from .._error import handle_error
 
 @click.command()
 @handle_error
-def ls():
+def ls() -> None:
     """
     Lists all available template UIDs with the number of captions they
     require.

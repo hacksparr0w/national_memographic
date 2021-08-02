@@ -1,3 +1,7 @@
+"""
+Simple interface for accessing Twitter's Standard v1.1 Tweet API methods.
+"""
+
 from typing import List, Optional
 
 from .. import _url
@@ -13,10 +17,19 @@ def _endpoint(path: str) -> str:
 
 
 def publish(
-    session: Session,
-    text: str,
-    media_ids: Optional[List[str]] = None
+        session: Session,
+        text: str,
+        media_ids: Optional[List[str]] = None
 ) -> None:
+    """
+    Publishes a new tweet comprised of specified text content and images
+    identified by the passed media IDs.
+
+    :param session: An authenticated session to be used.
+    :param text: The textual content of the new tweet.
+    :param media_ids: An optional list of media to be included in the tweet.
+    """
+
     params = {
         "status": text,
         "media_ids": None if not media_ids else ",".join(media_ids)

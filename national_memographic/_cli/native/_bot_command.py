@@ -1,4 +1,6 @@
-from typing import Optional
+"""
+A module implementing the bot command that is runnable only from a terminal.
+"""
 
 import click
 
@@ -11,15 +13,19 @@ from .._error import handle_error
 @click.option("--api-secret", required=True)
 @click.option("--access-token", required=True)
 @click.option("--access-secret", required=True)
-@click.option("--bulk-apperception", type=int)
+@click.option("--bulk-apperception", type=int, default=10)
 @handle_error
 def bot(
-    api_key: str,
-    api_secret: str,
-    access_token: str,
-    access_secret: str,
-    bulk_apperception: Optional[int]
+        api_key: str,
+        api_secret: str,
+        access_token: str,
+        access_secret: str,
+        bulk_apperception: int
 ) -> None:
+    """
+    Runs the Twitter bot with the given parameters.
+    """
+
     run(
         api_key,
         api_secret,

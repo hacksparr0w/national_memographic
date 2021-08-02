@@ -1,7 +1,15 @@
+"""
+Python program entry point.
+"""
+
 from ._cli.native.cli import cli
 
 
-def main():
+def main() -> None:
+    """
+    Runs the main CLI code.
+    """
+
     cli()
 
 

@@ -1,9 +1,11 @@
-import json
+"""
+The core API used for programmatic meme generation.
+"""
 
 from typing import List, Sequence
 
-from wand.drawing import Drawing
-from wand.image import Image
+from wand.drawing import Drawing # type: ignore
+from wand.image import Image # type: ignore
 
 from ._image import draw_bounded_text
 from .data import (
@@ -15,26 +17,56 @@ from .data import (
 from .template import Template
 
 
-class MemeError(ValueError):
-    pass
+class InvalidCaptionLengthError(ValueError):
+    """
+    An error raised uppon attempting to capture an image with different number
+    of captions than specified in used template.
+    """
 
-
-class InvalidCaptionLengthError(MemeError):
-    def __init__(self, expected_length, actual_length):
+    def __init__(self, expected_length: int, actual_length: int) -> None:
         super().__init__(
             "Invalid number of captions was specified. This template only "
             f"accepts {expected_length}, {actual_length} specified."
         )
 
 
+class UnknownTemplateUidError(Exception):
+    """
+    Thrown when no template is found for given template UID.
+    """
+
+    def __init__(self, uid: str) -> None:
+        super().__init__(f"No template with UID '{uid}' found")
+
+        self.uid = uid
+
+
 def load_template(uid: str) -> Template:
+    """
+    Loads a template by its UID.
+
+    :param uid: a UID of a template.
+    :return: A :class:`Template` object of the given UID.
+    :raises UnknownTemplateUidError: if no template with the given UID exists.
+    """
+
     path = get_template_path(uid)
-    template = read_template_from_json_file(uid, path)
+
+    try:
+        template = read_template_from_json_file(uid, path)
+    except FileNotFoundError:
+        raise UnknownTemplateUidError(uid)
 
     return template
 
 
 def load_templates() -> List[Template]:
+    """
+    Loads all know templates.
+
+    :return: A list of :class:`Template` objects
+    """
+
     templates = []
 
     for path in get_template_dir_path().iterdir():
@@ -44,7 +76,16 @@ def load_templates() -> List[Template]:
     return templates
 
 
-def render(template: Template, captions: Sequence[str]) -> Image:
+def generate(template: Template, captions: Sequence[str]) -> Image:
+    """
+    Generates an :class:`Image` object by applying captions to a given
+    template.
+
+    :param template: a template to be used when generating the image.
+    :param captions: a sequence of captions to be used.
+    :return: A resultant :class:`Image` object
+    """
+
     text_area_length = len(template.text_areas)
     caption_length = len(captions)
 
