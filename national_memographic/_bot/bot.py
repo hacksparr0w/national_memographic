@@ -7,19 +7,16 @@ from datetime import datetime, timedelta
 
 import click
 
-from ._args import parse
-from ._cli.twitter.cli import cli
-from ._twitter import account, direct_message
-from ._twitter.direct_message import DirectMessage
-from ._twitter.session import Session
+from .._args import parse
+from .._cli.twitter.cli import cli
+from .._twitter import account, direct_message
+from .._twitter.direct_message import DirectMessage
+from .._twitter.session import Session
+from .error import SecurityError
 
 
 _RESPONSE_TASK_RUN_PERIOD = timedelta(minutes=1)
 _MESSAGE_PROCESSING_TIMEOUT = timedelta(minutes=5)
-
-
-class SecurityError(Exception):
-    pass
 
 
 def _process_message(session: Session, message: DirectMessage) -> None:

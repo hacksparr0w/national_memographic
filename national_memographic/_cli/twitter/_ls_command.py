@@ -1,6 +1,7 @@
 import click
 
 from ... import meme
+from .._error import handle_error
 
 
 @click.command()

@@ -15,7 +15,11 @@ from .data import (
 from .template import Template
 
 
-class InvalidCaptionLengthError(ValueError):
+class MemeError(ValueError):
+    pass
+
+
+class InvalidCaptionLengthError(MemeError):
     def __init__(self, expected_length, actual_length):
         super().__init__(
             "Invalid number of captions was specified. This template only "

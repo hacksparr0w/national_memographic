@@ -2,7 +2,8 @@ from typing import Optional
 
 import click
 
-from ..._bot import run
+from ..._bot.bot import run
+from .._error import handle_error
 
 
 @click.command()
@@ -11,6 +12,7 @@ from ..._bot import run
 @click.option("--access-token", required=True)
 @click.option("--access-secret", required=True)
 @click.option("--bulk-apperception", type=int)
+@handle_error
 def bot(
     api_key: str,
     api_secret: str,
