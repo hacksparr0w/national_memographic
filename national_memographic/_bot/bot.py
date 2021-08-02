@@ -9,7 +9,8 @@ import click
 
 from .._args import parse
 from .._cli.twitter.cli import cli
-from .._twitter import account, direct_message
+from .._cli.twitter.context import Context
+from .._twitter import account, direct_message, user
 from .._twitter.direct_message import DirectMessage
 from .._twitter.session import Session
 from .error import SecurityError
@@ -21,6 +22,8 @@ _MESSAGE_PROCESSING_TIMEOUT = timedelta(minutes=5)
 
 def _process_message(session: Session, message: DirectMessage) -> None:
     args = parse(message.text)
+    sender = user.get(session, message.sender_id)
+    context = Context(session, sender)
 
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -32,7 +35,7 @@ def _process_message(session: Session, message: DirectMessage) -> None:
     sys.stdout = output
 
     try:
-        cli(args=args, prog_name=" ", obj=session)
+        cli(args=args, prog_name=" ", obj=context)
     except SystemExit:
         pass
     finally:

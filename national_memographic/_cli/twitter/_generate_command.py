@@ -7,15 +7,17 @@ from ... import meme
 from ..._twitter import media, tweet
 from ..._twitter.session import Session
 from .._error import handle_error
-from ._pass_session import pass_session
+from .context import Context, pass_context
 
 
 @click.command()
 @click.argument("uid")
 @click.argument("captions", nargs=-1)
-@pass_session
+@pass_context
 @handle_error
-def generate(session: Session, uid: str, captions: List[str]) -> None:
+def generate(context: Context, uid: str, captions: List[str]) -> None:
+    sender = context.sender
+    session = context.session
     template = meme.load_template(uid)
     image = meme.render(template, captions)
     blob = image.make_blob()
@@ -23,6 +25,11 @@ def generate(session: Session, uid: str, captions: List[str]) -> None:
     stream = BytesIO(blob)
 
     media_id = media.upload(session, image.mimetype, size, stream)
-    tweet.publish(session, "@hacksparr0w here you go!", media_ids=[media_id])
+
+    tweet.publish(
+        session,
+        f"@{sender.handle} here you go!",
+        media_ids=[media_id]
+    )
 
     click.echo("🔥")
