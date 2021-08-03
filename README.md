@@ -12,25 +12,28 @@
 
 <h4 align="center">The one and only Twitter meme bot</h4>
 
+National Memographic is a very simple Twitter bot allowing you to create memes directly from Twitter DMs - you simply send a message with parameters specifying what meme template you want to use and what text to caption the template with and this artificially intelligent bot will take care of the rest, creating you a crispy meme according to your desires.
+
+If you are a little bit more technically proficient user, you can try using National Memographic's programmatic Python interface or interact with it via terminal.
+
+__Main features__:
+ - [x] General-purpose meme generation Python package allowing you to make watermark-free memes fast and simple,
+ - [x] User-friendly interfaces accessible through Python code, terminal and even Twitter DMs,
+ - [ ] Rich meme template library,
+ - [ ] Advanced features like GIF captioning and media embedding,
+ - [ ] Integration with Twitter's webhooks for real-time direct message processing.
+
 ## Installation
 
-You can currently install National Memographic by using the
-[Poetry dependency manager][1]. Following are the recommended steps to take
-when installing with Poetry.
+National Memographic can be installed using [pip][1]:
 
 ```bash
-git clone https://github.com/hacksparr0w/national_memographic
-cd national_memographic
-
-poetry build
-pip install dist/national_memographic-0.1.0.tar.gz
+pip install national_memographic
 ```
-
-_Note: The actual version of the built package may vary._
 
 ## Usage
 
-### Library
+### Python
 
 You can use the core library as a tool for programmatic meme generation. The
 following is a simple API demonstration.
@@ -66,9 +69,9 @@ meme caption --out intro.png drakeposting "Making a..." "Generating a..."
 You can also list all available meme templates by running `meme ls`, or view
 help for the whole CLI app by typing `meme --help`.
 
-## Roadmap
- - [ ] Implement a general-purpose meme generation library.
- - [ ] Build a simple Twitter bot that lets Twitter users make memes easily.
- - [x] Profit!
+## Contributing
 
-[1]: https://github.com/python-poetry/poetry
+If you'd like us to add your favorite meme template or have an idea for a new
+feature, you are highly encouraged to contact us or open a new issue.
+
+[1]: https://pypi.org/project/pip/
