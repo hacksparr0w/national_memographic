@@ -1,9 +1,21 @@
-![Introduction][1]
+<h1 align="center">
+  <br>
+    <img
+        src="https://raw.githubusercontent.com/hacksparr0w/national_memographic/main/mascot.png"
+        alt="National Memographic"
+        width="580"
+    >
+  <br>
+    National Memographic
+  <br>
+</h1>
+
+<h4 align="center">The one and only Twitter meme bot</h4>
 
 ## Installation
 
 You can currently install National Memographic by using the
-[Poetry dependency manager][2]. Following are the recommended steps to take
+[Poetry dependency manager][1]. Following are the recommended steps to take
 when installing with Poetry.
 
 ```bash
@@ -59,5 +71,4 @@ help for the whole CLI app by typing `meme --help`.
  - [ ] Build a simple Twitter bot that lets Twitter users make memes easily.
  - [x] Profit!
 
-[1]: https://raw.githubusercontent.com/hacksparr0w/national_memographic/main/intro.png
-[2]: https://github.com/python-poetry/poetry
+[1]: https://github.com/python-poetry/poetry
