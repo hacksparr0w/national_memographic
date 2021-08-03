@@ -76,9 +76,9 @@ def load_templates() -> List[Template]:
     return templates
 
 
-def generate(template: Template, captions: Sequence[str]) -> Image:
+def caption(template: Template, captions: Sequence[str]) -> Image:
     """
-    Generates an :class:`Image` object by applying captions to a given
+    Creates an :class:`Image` object by applying captions to a given
     template.
 
     :param template: a template to be used when generating the image.
@@ -86,22 +86,23 @@ def generate(template: Template, captions: Sequence[str]) -> Image:
     :return: A resultant :class:`Image` object
     """
 
-    text_area_length = len(template.text_areas)
+    text_areas = template.text_areas
+    text_area_length = len(text_areas)
     caption_length = len(captions)
 
-    if caption_length != text_area_length:
+    if text_area_length != caption_length:
         raise InvalidCaptionLengthError(text_area_length, caption_length)
 
     with Image(filename=template.image_path) as image:
         with Drawing() as drawing:
-            for area, caption in zip(template.text_areas, captions):
+            for area, text in zip(text_areas, captions):
                 drawing.font = str(area.text.font_path)
                 drawing.font_size = area.text.size
 
                 draw_bounded_text(
                     drawing,
                     image,
-                    caption,
+                    text,
                     area.text.align,
                     area.text.position,
                     area.bounds.pad(area.padding)

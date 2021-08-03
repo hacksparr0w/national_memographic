@@ -1,5 +1,5 @@
 """
-A module implementing a version of the generate command that is used by the
+A module implementing a version of the caption command that is used by the
 bot for the Twitter CLI app.
 """
 
@@ -19,16 +19,16 @@ from .context import Context, pass_context
 @click.argument("captions", nargs=-1)
 @pass_context
 @handle_error
-def generate(context: Context, uid: str, captions: List[str]) -> None:
+def caption(context: Context, uid: str, captions: List[str]) -> None:
     """
-    Generates a meme from a template with the passed UID using the given
+    Makes a meme from a template with the passed UID using the given
     captions.
     """
 
     sender = context.sender
     session = context.session
     template = meme.load_template(uid)
-    image = meme.generate(template, captions)
+    image = meme.caption(template, captions)
     blob = image.make_blob()
     size = len(blob)
     stream = BytesIO(blob)

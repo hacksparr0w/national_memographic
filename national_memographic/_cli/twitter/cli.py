@@ -5,7 +5,7 @@ one command group.
 
 import click
 
-from ._generate_command import generate
+from ._caption_command import caption
 from ._ls_command import ls
 
 
@@ -24,5 +24,5 @@ def meme() -> None:
     """
 
 
-meme.add_command(generate)
+meme.add_command(caption)
 meme.add_command(ls)

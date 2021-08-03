@@ -6,7 +6,7 @@ one command group.
 import click
 
 from ._bot_command import bot
-from ._generate_command import generate
+from ._caption_command import caption
 from ._ls_command import ls
 
 
@@ -18,5 +18,5 @@ def cli() -> None:
 
 
 cli.add_command(bot)
-cli.add_command(generate)
+cli.add_command(caption)
 cli.add_command(ls)

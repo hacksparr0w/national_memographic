@@ -33,7 +33,7 @@ captions = (
     "Generating a meme using a Twitter bot"
 )
 
-image = meme.generate(template, captions)
+image = meme.caption(template, captions)
 image.transform(resize="x600")
 image.save(filename="intro.png")
 ```
@@ -48,7 +48,7 @@ a command for achieving the exact same results as the programmatic example,
 from the comfort of your shell.
 
 ```bash
-meme generate --out intro.png drakeposting "Making a..." "Generating a..."
+meme caption --out intro.png drakeposting "Making a..." "Generating a..."
 ```
 
 You can also list all available meme templates by running `meme ls`, or view
