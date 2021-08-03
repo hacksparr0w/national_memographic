@@ -2,6 +2,7 @@
 A module for manipulating resources, mainly meme templates.
 """
 
+import os
 import json
 
 from pathlib import Path
@@ -13,7 +14,8 @@ from .common import Rect
 from .template import Template, Text, TextAlign, TextArea, TextPosition
 
 
-_TEMPLATE_DIR_PATH = Path("data/template")
+_DATA_DIR_PATH = Path(os.path.abspath(__file__)).parent / "../data"
+_TEMPLATE_DIR_PATH = _DATA_DIR_PATH / "template"
 
 
 def get_template_dir_path() -> Path:
