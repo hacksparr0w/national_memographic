@@ -7,14 +7,13 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, TextIO
 
-from wand.color import Color # type: ignore
+from wand.color import Color  # type: ignore
 
 from .common import Rect
 from .template import Template, Text, TextAlign, TextArea, TextPosition
 
 
 _TEMPLATE_DIR_PATH = Path("data/template")
-
 
 
 def get_template_dir_path() -> Path:

@@ -2,6 +2,7 @@
 Utility functions for working with URLs.
 """
 
+
 def join(base: str, path: str) -> str:
     """
     A very naive implementation of URL path concatenation that suffices for

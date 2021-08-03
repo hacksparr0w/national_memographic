@@ -4,8 +4,8 @@ An internal module for advanced image manipulation using :mod:`wand`.
 
 import textwrap
 
-from wand.image import Image # type: ignore
-from wand.drawing import Drawing # type: ignore
+from wand.image import Image  # type: ignore
+from wand.drawing import Drawing  # type: ignore
 
 from .common import Rect
 from .template import TextAlign, TextPosition, TextPositionX, TextPositionY

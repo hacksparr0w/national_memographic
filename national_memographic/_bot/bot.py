@@ -37,7 +37,7 @@ def _process_message(session: Session, message: DirectMessage) -> None:
     sys.stdout = output
 
     try:
-        cli(args=args, prog_name=" ", obj=context) # pylint: disable=E1123
+        cli(args=args, prog_name=" ", obj=context)  # pylint: disable=E1123
     except SystemExit:
         pass
     finally:

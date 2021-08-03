@@ -4,7 +4,7 @@ This module contains everything needed for OAuth 1.0a enabled sessions.
 
 import requests
 
-from requests_oauthlib import OAuth1 # type: ignore
+from requests_oauthlib import OAuth1  # type: ignore
 
 
 class Session(requests.Session):

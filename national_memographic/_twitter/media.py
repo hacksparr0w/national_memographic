@@ -14,7 +14,6 @@ _SEGMENT_SIZE = 1000
 _URL = _url.join(UPLOAD_URL, "/media")
 
 
-
 def _endpoint(path: str) -> str:
     return _url.join(_URL, path)
 

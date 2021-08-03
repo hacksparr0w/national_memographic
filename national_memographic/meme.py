@@ -4,8 +4,8 @@ The core API used for programmatic meme generation.
 
 from typing import List, Sequence
 
-from wand.drawing import Drawing # type: ignore
-from wand.image import Image # type: ignore
+from wand.drawing import Drawing  # type: ignore
+from wand.image import Image  # type: ignore
 
 from ._image import draw_bounded_text
 from .data import (

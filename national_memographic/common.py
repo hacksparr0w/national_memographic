@@ -2,6 +2,7 @@
 A module containing concepts common across the whole project.
 """
 
+
 class Rect:
     """
     This class represents a rectangle defined by its upper-left and

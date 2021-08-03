@@ -34,13 +34,13 @@ def handle_error(f: F) -> F:
     """
 
     @wraps(f)
-    def wrapped(*args, **kwargs): # type: ignore
+    def wrapped(*args, **kwargs):  # type: ignore
         try:
             return f(*args, **kwargs)
-        except Exception as error: # pylint: disable=W0703
+        except Exception as error:  # pylint: disable=W0703
             if isinstance(error, _APP_ERRORS):
                 raise click.UsageError(error.args[0])
 
             raise error
 
-    return wrapped # type: ignore
+    return wrapped  # type: ignore
