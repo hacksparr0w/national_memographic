@@ -1,10 +1,15 @@
-name: test
+name: ci
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
+  release:
+    types:
+      - created
   workflow_dispatch:
 
 jobs:
@@ -31,3 +36,16 @@ jobs:
           poetry run pylint national_memographic
           poetry run mypy national_memographic
           poetry run pytest
+  publish:
+    runs-on: ubuntu-latest
+    needs: test
+    if: ${{ github.event_name == 'release' }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: publish to PyPI
+        run: |
+          pip install poetry
+          poetry publish --username __token__ --password ${{ secrets.PYPI_API_TOKEN }}
