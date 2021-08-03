@@ -55,7 +55,7 @@ def load_template(uid: str) -> Template:
     try:
         template = read_template_from_json_file(uid, path)
     except FileNotFoundError:
-        raise UnknownTemplateUidError(uid)  # pylint: disable=W0707
+        raise UnknownTemplateUidError(uid)
 
     return template
 
