@@ -1,0 +1,25 @@
+{
+  "image_path": "../image/anakin_padme.png",
+  "text_style": {
+    "align": "center",
+    "border_color": "#000",
+    "border_width": 4,
+    "fill_color": "#fff",
+    "font_path": "../font/anton_regular.ttf",
+    "font_size": 32,
+    "position": "center bottom",
+    "transform": "uppercase"
+  },
+  "text_areas": [
+    {
+      "bounds": [0, 290, 384, 384],
+      "padding": 5
+    }, {
+      "bounds": [384, 290, 768, 384],
+      "padding": 5
+    }, {
+      "bounds": [384, 674, 768, 768],
+      "padding": 5
+    }
+  ]
+}

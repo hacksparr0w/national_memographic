@@ -57,7 +57,7 @@ def draw_bounded_text(  # pylint: disable=R0912,R0914,R0915
     drawing.font = str(style.font_path)
     drawing.font_size = style.font_size
     drawing.fill_color = style.fill_color
-    drawing.stroke_color = style.fill_color
+    drawing.stroke_width = 0.0
 
     transformed_text = text
 
