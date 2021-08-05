@@ -191,8 +191,8 @@ class TextTransformation(Enum):
         raise UnknownTextTransformationError(value)
 
 
-@dataclass  # pylint: disable=R0902
-class TextStyle:
+@dataclass
+class TextStyle:  # pylint: disable=R0902
     """
     A structure of various text styling options.
     """
