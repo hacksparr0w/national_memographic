@@ -31,9 +31,6 @@ defining-attr-methods=__init__,__new__
 exclude-protected=
 
 [DESIGN]
-max-args=6
-max-branches=15
-max-locals=20
 min-public-methods=1
 
 

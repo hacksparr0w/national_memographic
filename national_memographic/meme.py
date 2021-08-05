@@ -96,16 +96,12 @@ def caption(template: Template, captions: Sequence[str]) -> Image:
     with Image(filename=template.image_path) as image:
         with Drawing() as drawing:
             for area, text in zip(text_areas, captions):
-                drawing.font = str(area.text.font_path)
-                drawing.font_size = area.text.size
-
                 draw_bounded_text(
                     drawing,
                     image,
-                    text,
-                    area.text.align,
-                    area.text.position,
-                    area.bounds.pad(area.padding)
+                    area.bounds.pad(area.padding),
+                    area.text_style,
+                    text
                 )
 
             drawing.draw(image)

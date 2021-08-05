@@ -5,14 +5,14 @@ A module concerned with defining the templating data model.
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
-from typing import List, Sequence
+from typing import List, Optional
 
 from wand.color import Color  # type: ignore
 
 from .common import Rect
 
 
-class UnknownTextAlignError(ValueError):
+class UnknownTextAlignmentError(ValueError):
     """
     Raised when an unknown value is provided for text alignment.
     """
@@ -39,6 +39,15 @@ class UnknownTextPositionYError(ValueError):
         super().__init__(f"'{value}' is not a valid Y text position.")
 
 
+class UnknownTextTransformationError(ValueError):
+    """
+    Raised when an unknown value is provided for text transformation.
+    """
+
+    def __init__(self, value: str) -> None:
+        super().__init__(f"'{value}' is not a valid text transformation.")
+
+
 class InvalidTextPositionError(ValueError):
     """
     Raised when an unknown value is provided for text position.
@@ -48,7 +57,7 @@ class InvalidTextPositionError(ValueError):
         super().__init__(f"'{value}' is not a valid text position.")
 
 
-class TextAlign(Enum):
+class TextAlignment(Enum):
     """
     All possible text alignment options.
     """
@@ -58,21 +67,21 @@ class TextAlign(Enum):
     RIGHT = "right"
 
     @classmethod
-    def of(cls, value: str) -> "TextAlign":
+    def of(cls, value: str) -> "TextAlignment":
         """
-        Parses a member of :cls:`TextAlign` from its string value.
+        Parses a member of :cls:`TextAlignment` from its string value.
 
         :param value: a string value of text alignment.
-        :return: A member of :cls:`TextAlign` enumeration.
+        :return: A member of :cls:`TextAlignment` enumeration.
         """
 
-        members: List[TextAlign] = list(cls)
+        members: List[TextAlignment] = list(cls)
 
         for member in members:
             if member.value == value:
                 return member
 
-        raise UnknownTextAlignError(value)
+        raise UnknownTextAlignmentError(value)
 
 
 class TextPositionX(Enum):
@@ -157,17 +166,46 @@ class TextPosition:
         return cls(TextPositionX.of(x), TextPositionY.of(y))
 
 
-@dataclass
-class Text:
+class TextTransformation(Enum):
     """
-    A structure of various properties of a text.
+    An enumeration of all possible text transformations.
     """
 
-    align: TextAlign
-    color: Color
+    UPPERCASE = "uppercase"
+
+    @classmethod
+    def of(cls, value: str) -> "TextTransformation":
+        """
+        Parses :class:`TextTransformation` object from its string value.
+
+        :param value: a string value representing text transformation.
+        :return: The corresponding member of :cls:`TextPositionY` enumeration.
+        """
+
+        members: List[TextTransformation] = list(cls)
+
+        for member in members:
+            if member.value == value:
+                return member
+
+        raise UnknownTextTransformationError(value)
+
+
+@dataclass  # pylint: disable=R0902
+class TextStyle:
+    """
+    A structure of various text styling options.
+    """
+
     font_path: Path
-    position: TextPosition
-    size: int
+    font_size: float
+
+    align: TextAlignment = TextAlignment.CENTER
+    border_color: Color = Color("transparent")
+    border_width: float = 0
+    fill_color: Color = Color("#000")
+    position: TextPosition = TextPosition.of("center center")
+    transform: Optional[TextTransformation] = None
 
 
 @dataclass
@@ -177,8 +215,9 @@ class TextArea:
     """
 
     bounds: Rect
-    padding: int
-    text: Text
+    text_style: TextStyle
+
+    padding: int = 0
 
 
 @dataclass
@@ -190,4 +229,4 @@ class Template:
 
     uid: str
     image_path: Path
-    text_areas: Sequence[TextArea]
+    text_areas: List[TextArea]

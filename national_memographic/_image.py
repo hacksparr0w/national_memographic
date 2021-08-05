@@ -8,16 +8,37 @@ from wand.image import Image  # type: ignore
 from wand.drawing import Drawing  # type: ignore
 
 from .common import Rect
-from .template import TextAlign, TextPosition, TextPositionX, TextPositionY
+from .template import (
+    TextAlignment,
+    TextPositionX,
+    TextPositionY,
+    TextStyle,
+    TextTransformation
+)
 
 
-def draw_bounded_text(
+def draw_rect(drawing: Drawing, rect: Rect) -> None:
+    """
+    Draws a rectangle according to the suplied :class:`Rect` object.
+
+    :param drawing: the drawing to be drawn on.
+    :param rect: the :class:`Rect` object to be drawn.
+    """
+
+    drawing.rectangle(
+        left=rect.x1,
+        top=rect.y1,
+        width=rect.width,
+        height=rect.height
+    )
+
+
+def draw_bounded_text(  # pylint: disable=R0912,R0914,R0915
         drawing: Drawing,
         image: Image,
-        text: str,
-        align: TextAlign,
-        position: TextPosition,
-        bounds: Rect
+        bounds: Rect,
+        style: TextStyle,
+        text: str
 ) -> None:
     """
     Draws a text into an area defined by a :class:`Rect` object, resizing and
@@ -31,8 +52,19 @@ def draw_bounded_text(
     :param bounds: the area to fit the text into.
     """
 
-    previous_font_size = drawing.font_size
-    wrapped_text = text
+    drawing.push()
+
+    drawing.font = str(style.font_path)
+    drawing.font_size = style.font_size
+    drawing.fill_color = style.fill_color
+    drawing.stroke_color = style.fill_color
+
+    transformed_text = text
+
+    if style.transform == TextTransformation.UPPERCASE:
+        transformed_text = text.upper()
+
+    wrapped_text = transformed_text
 
     ascender: float
     descender: float
@@ -53,13 +85,16 @@ def draw_bounded_text(
 
         if text_height > bounds.height:
             drawing.font_size -= 0.75
-            wrapped_text = text
+            wrapped_text = transformed_text
         elif text_width > bounds.width:
             columns = len(wrapped_text)
 
             while columns > 1:
                 columns -= 1
-                wrapped_text = "\n".join(textwrap.wrap(text, columns))
+                wrapped_text = "\n".join(
+                    textwrap.wrap(transformed_text, columns)
+                )
+
                 metrics = drawing.get_font_metrics(
                     image,
                     wrapped_text,
@@ -73,21 +108,21 @@ def draw_bounded_text(
 
             if columns == 1:
                 drawing.font_size -= 0.75
-                wrapped_text = text
+                wrapped_text = transformed_text
         else:
             break
 
     x = bounds.x1
     y = bounds.y1
 
-    if position.x == TextPositionX.CENTER:
+    if style.position.x == TextPositionX.CENTER:
         x += round((bounds.width - text_width) / 2)
-    elif position.x == TextPositionX.RIGHT:
+    elif style.position.x == TextPositionX.RIGHT:
         x += round(bounds.width - text_width)
 
-    if position.y == TextPositionY.BOTTOM:
+    if style.position.y == TextPositionY.BOTTOM:
         y += round(bounds.height - text_height)
-    elif position.y == TextPositionY.CENTER:
+    elif style.position.y == TextPositionY.CENTER:
         y += round((bounds.height - text_height) / 2)
 
     lines = wrapped_text.split("\n")
@@ -100,13 +135,24 @@ def draw_bounded_text(
 
         dx = 0
 
-        if align == TextAlign.CENTER:
+        if style.align == TextAlignment.CENTER:
             dx = round((text_width - line_width) / 2)
-        elif align == TextAlign.RIGHT:
+        elif style.align == TextAlignment.RIGHT:
             dx = round(text_width - line_width)
+
+        if style.border_width:
+            drawing.push()
+
+            drawing.fill_color = style.border_color
+            drawing.stroke_color = style.border_color
+            drawing.stroke_width += style.border_width
+
+            drawing.text(x + dx, y, line)
+
+            drawing.pop()
 
         drawing.text(x + dx, y, line)
 
         y -= round(descender)
 
-    drawing.font_size = previous_font_size
+    drawing.pop()

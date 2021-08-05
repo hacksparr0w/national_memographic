@@ -1,26 +1,19 @@
 {
   "image_path": "../image/drakeposting.jpg",
+  "text_style": {
+    "align": "center",
+    "color": "#000",
+    "font_path": "../font/montserrat_bold.ttf",
+    "font_size": 70,
+    "position": "center center"
+  },
   "text_areas": [
     {
       "bounds": [600, 0, 1200, 600],
-      "padding": 40,
-      "text": {
-        "align": "center",
-        "color": "#000",
-        "font_path": "../font/montserrat_bold.ttf",
-        "position": "center center",
-        "size": 70
-      }
+      "padding": 40
     }, {
       "bounds": [600, 600, 1200, 1200],
-      "padding": 40,
-      "text": {
-        "align": "center",
-        "color": "#000",
-        "font_path": "../font/montserrat_bold.ttf",
-        "position": "center center",
-        "size": 70
-      }
+      "padding": 40
     }
   ]
 }

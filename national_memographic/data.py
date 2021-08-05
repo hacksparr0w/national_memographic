@@ -6,12 +6,19 @@ import os
 import json
 
 from pathlib import Path
-from typing import Any, Mapping, TextIO
+from typing import Any, Dict, Mapping, Optional, TextIO
 
 from wand.color import Color  # type: ignore
 
 from .common import Rect
-from .template import Template, Text, TextAlign, TextArea, TextPosition
+from .template import (
+    Template,
+    TextAlignment,
+    TextArea,
+    TextPosition,
+    TextStyle,
+    TextTransformation
+)
 
 
 _DATA_DIR_PATH = Path(os.path.abspath(__file__)).parent / "../data"
@@ -29,34 +36,65 @@ def get_template_dir_path() -> Path:
     return _TEMPLATE_DIR_PATH
 
 
-def deserialize_text(data: Mapping[str, Any]) -> Text:
+def deserialize_text_style(data: Mapping[str, Any]) -> TextStyle:
     """
-    Reconstructs a :class:`Text` object from a mapping.
+    Reconstructs a :class:`TextStyle` object from a mapping.
 
-    :return: A :class:`Text` object
+    :return: A :class:`TextStyle` object
     """
 
-    align = TextAlign.of(data["align"])
-    color = Color(data["color"])
-    font_path = get_template_dir_path() / data["font_path"]
-    position = TextPosition.of(data["position"])
-    size = data["size"]
+    kwargs = {}
 
-    return Text(align, color, font_path, position, size)
+    kwargs["font_path"] = get_template_dir_path() / data["font_path"]
+    kwargs["font_size"] = data["font_size"]
+
+    if "align" in data:
+        kwargs["align"] = TextAlignment.of(data["align"])
+
+    if "border_color" in data:
+        kwargs["border_color"] = Color(data["border_color"])
+
+    if "border_width" in data:
+        kwargs["border_width"] = data["border_width"]
+
+    if "fill_color" in data:
+        kwargs["fill_color"] = Color(data["fill_color"])
+
+    if "position" in data:
+        kwargs["position"] = TextPosition.of(data["position"])
+
+    if "transform" in data:
+        kwargs["transform"] = TextTransformation.of(data["transform"])
+
+    return TextStyle(**kwargs)
 
 
-def deserialize_text_area(data: Mapping[str, Any]) -> TextArea:
+def deserialize_text_area(
+    data: Mapping[str, Any],
+    global_text_style: Optional[TextStyle]
+) -> TextArea:
     """
     Reconstructs a :class:`TextArea` object from a mapping.
 
+    :param data: a mapping to deserialize a text area from.
+    :param global_text_style: a global definition of text style to be passed
+        down to this :class:`TextArea` object.
     :return: A :class:`TextArea` object
     """
 
-    bounds = Rect(*data["bounds"])
-    padding = data["padding"]
-    text = deserialize_text(data["text"])
+    kwargs: Dict[str, Any] = {}
 
-    return TextArea(bounds, padding, text)
+    kwargs["bounds"] = Rect(*data["bounds"])
+
+    if "padding" in data:
+        kwargs["padding"] = data["padding"]
+
+    if global_text_style:
+        kwargs["text_style"] = data.get("text_style", global_text_style)
+    else:
+        kwargs["text_style"] = data["text_style"]
+
+    return TextArea(**kwargs)
 
 
 def deserialize_template(uid: str, data: Mapping[str, Any]) -> Template:
@@ -67,7 +105,16 @@ def deserialize_template(uid: str, data: Mapping[str, Any]) -> Template:
     """
 
     image_path = get_template_dir_path() / data["image_path"]
-    text_areas = [deserialize_text_area(area) for area in data["text_areas"]]
+    global_text_style = (
+        deserialize_text_style(data["text_style"]) if "text_style" in data
+        else None
+    )
+
+    text_areas = []
+
+    for area in data["text_areas"]:
+        text_area = deserialize_text_area(area, global_text_style)
+        text_areas.append(text_area)
 
     return Template(uid, image_path, text_areas)
 

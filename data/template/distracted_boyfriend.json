@@ -1,0 +1,22 @@
+{
+  "image_path": "../image/distracted_boyfriend.jpg",
+  "text_style": {
+    "align": "center",
+    "border_color": "#000",
+    "border_width": 8,
+    "fill_color": "#fff",
+    "font_path": "../font/anton_regular.ttf",
+    "font_size": 80,
+    "position": "center center",
+    "transform": "uppercase"
+  },
+  "text_areas": [
+    {
+      "bounds": [150, 490, 550, 650]
+    }, {
+      "bounds": [570, 300, 900, 460]
+    }, {
+      "bounds": [900, 400, 1165, 550]
+    }
+  ]
+}
