@@ -1,0 +1,21 @@
+{
+  "image_path": "../image/buff_doge_vs_cheems.png",
+  "text_style": {
+    "align": "center",
+    "color": "#000",
+    "font_path": "../font/montserrat_regular.ttf",
+    "font_size": 70,
+    "position": "center center"
+  },
+  "text_areas": [
+    {
+      "bounds": [20, 20, 400, 80]
+    }, {
+      "bounds": [570, 20, 900, 160]
+    }, {
+      "bounds": [20, 530, 480, 700]
+    }, {
+      "bounds": [600, 560, 910, 690]
+    }
+  ]
+}
