@@ -1,0 +1,33 @@
+{
+  "image_path": "../image/is_this_a_pigeon.jpg",
+  "text_style": {
+    "align": "center",
+    "border_color": "#000",
+    "border_width": 8,
+    "fill_color": "#fff",
+    "font_path": "../font/anton_regular.ttf",
+    "font_size": 128,
+    "position": "center top",
+    "transform": "uppercase"
+  },
+  "text_areas": [
+    {
+      "bounds": [90, 140, 790, 460]
+    }, {
+      "bounds": [1026, 500, 1546, 880]
+    }, {
+      "bounds": [0, 1160, 1587, 1425],
+      "padding": 5,
+      "text_style": {
+        "align": "center",
+        "border_color": "#000",
+        "border_width": 8,
+        "fill_color": "#fff",
+        "font_path": "../font/anton_regular.ttf",
+        "font_size": 128,
+        "position": "center bottom",
+        "transform": "uppercase"
+      }
+    }
+  ]
+}

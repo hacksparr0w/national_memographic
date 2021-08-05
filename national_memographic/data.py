@@ -90,7 +90,11 @@ def deserialize_text_area(
         kwargs["padding"] = data["padding"]
 
     if global_text_style:
-        kwargs["text_style"] = data.get("text_style", global_text_style)
+        text_style = data.get("text_style")
+        kwargs["text_style"] = (
+            deserialize_text_style(text_style) if text_style
+            else global_text_style
+        )
     else:
         kwargs["text_style"] = data["text_style"]
 
