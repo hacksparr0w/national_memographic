@@ -1,0 +1,28 @@
+{
+  "image_path": "../image/expanding_brain.jpg",
+  "text_style": {
+    "align": "center",
+    "border_color": "#000",
+    "border_width": 4,
+    "fill_color": "#fff",
+    "font_path": "../font/anton_regular.ttf",
+    "font_size": 64,
+    "position": "center center",
+    "transform": "uppercase"
+  },
+  "text_areas": [
+    {
+      "bounds": [0, 0, 423, 298],
+      "padding": 5
+    }, {
+      "bounds": [0, 302, 423, 605],
+      "padding": 5
+    }, {
+      "bounds": [0, 610, 421, 882],
+      "padding": 5
+    }, {
+      "bounds": [0, 893, 423, 1202],
+      "padding": 5
+    }
+  ]
+}

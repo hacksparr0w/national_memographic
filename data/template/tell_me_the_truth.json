@@ -1,0 +1,22 @@
+{
+  "image_path": "../image/tell_me_the_truth.png",
+  "text_style": {
+    "align": "center",
+    "border_color": "#000",
+    "border_width": 4,
+    "fill_color": "#fff",
+    "font_path": "../font/anton_regular.ttf",
+    "font_size": 32,
+    "position": "center bottom",
+    "transform": "uppercase"
+  },
+  "text_areas": [
+    {
+      "bounds": [0, 420, 462, 515],
+      "padding": 5
+    }, {
+      "bounds": [0, 671, 462, 766],
+      "padding": 5
+    }
+  ]
+}
