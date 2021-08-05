@@ -1,0 +1,14 @@
+{
+  "image_path": "../image/batslap.jpg",
+  "text_style": {
+    "font_path": "../font/montserrat_regular.ttf",
+    "font_size": 28
+  },
+  "text_areas": [
+    {
+      "bounds": [20, 4, 190, 74]
+    }, {
+      "bounds": [220, 5, 385, 75]
+    }
+  ]
+}
