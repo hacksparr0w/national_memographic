@@ -1,0 +1,18 @@
+{
+  "image_path": "../image/always_has_been.png",
+  "text_style": {
+    "align": "center",
+    "fill_color": "#fff",
+    "font_path": "../font/montserrat_regular.ttf",
+    "font_size": 32,
+    "position": "center bottom"
+  },
+  "text_areas": [
+    {
+      "bounds": [230, 30, 500, 230]
+    },
+    {
+      "bounds": [600, 10, 950, 50]
+    }
+  ]
+}
