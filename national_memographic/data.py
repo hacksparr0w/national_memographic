@@ -60,6 +60,9 @@ def deserialize_text_style(data: Mapping[str, Any]) -> TextStyle:
     if "fill_color" in data:
         kwargs["fill_color"] = Color(data["fill_color"])
 
+    if "interline_spacing" in data:
+        kwargs["interline_spacing"] = data["interline_spacing"]
+
     if "position" in data:
         kwargs["position"] = TextPosition.of(data["position"])
 

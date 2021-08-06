@@ -58,6 +58,7 @@ def draw_bounded_text(  # pylint: disable=R0912,R0914,R0915
     drawing.font_size = style.font_size
     drawing.fill_color = style.fill_color
     drawing.stroke_width = 0.0
+    drawing.text_interline_spacing = style.interline_spacing
 
     transformed_text = text
 
@@ -153,6 +154,6 @@ def draw_bounded_text(  # pylint: disable=R0912,R0914,R0915
 
         drawing.text(x + dx, y, line)
 
-        y -= round(descender)
+        y -= round(descender - drawing.text_interline_spacing)
 
     drawing.pop()

@@ -202,8 +202,9 @@ class TextStyle:  # pylint: disable=R0902
 
     align: TextAlignment = TextAlignment.CENTER
     border_color: Color = Color("transparent")
-    border_width: float = 0
+    border_width: float = 0.0
     fill_color: Color = Color("#000")
+    interline_spacing: float = 0.0
     position: TextPosition = TextPosition.of("center center")
     transform: Optional[TextTransformation] = None
 
