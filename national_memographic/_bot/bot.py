@@ -74,8 +74,11 @@ def run(
     session = Session(api_key, api_secret, access_token, access_secret)
     me = account.me(session)
 
-    logging.info("Authenticated as @{}", me.screen_name)
-    logging.info("Running response task once in {}", _RESPONSE_TASK_RUN_PERIOD)
+    logging.info("Authenticated as @%s", me.screen_name)
+    logging.info(
+        "Running response task once in %d seconds",
+        _RESPONSE_TASK_RUN_PERIOD.total_seconds()
+    )
 
     while True:
         time.sleep(_RESPONSE_TASK_RUN_PERIOD.total_seconds())
@@ -103,6 +106,6 @@ def run(
             processed[message.sender_id] = True
 
         logging.info(
-            "Processed total of {} message(s) during this period.",
+            "Processed total of %d message(s) during this period",
             total
         )
