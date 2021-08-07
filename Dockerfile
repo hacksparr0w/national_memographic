@@ -1,14 +1,8 @@
 FROM python:3
 
-WORKDIR /app
+RUN pip install national_memography
 
-COPY . .
-
-RUN pip install poetry
-RUN poetry install
-
-CMD poetry run \
-  meme bot \
+CMD meme bot \
   --api-key $TW_API_KEY \
   --api-secret $TW_API_SECRET \
   --access-token $TW_ACCESS_TOKEN \
