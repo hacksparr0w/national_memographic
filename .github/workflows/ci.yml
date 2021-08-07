@@ -62,5 +62,5 @@ jobs:
           export_default_credentials: true
       - run: |
           gcloud auth configure-docker -q
-          docker build -t gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/${GITHUB_REPOSITORY#*/}:${GITHUB_REF##*/} .
-          docker push gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/${GITHUB_REPOSITORY#*/}:${GITHUB_REF##*/}
+          docker build -t gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/${GITHUB_REPOSITORY#*/}:${GITHUB_REF##*/v} .
+          docker push gcr.io/${{ secrets.GCLOUD_PROJECT_ID }}/${GITHUB_REPOSITORY#*/}:${GITHUB_REF##*/v}
