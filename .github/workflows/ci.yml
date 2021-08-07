@@ -55,7 +55,7 @@ jobs:
     if: ${{ github.event_name == 'release' }}
     steps:
       - uses: actions/checkout@v2
-      - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.GCLOUD_PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD_SERVICE_ACCOUNT_KEY }}

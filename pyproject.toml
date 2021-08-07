@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "national_memographic"
-version = "0.1.4"
+version = "0.1.5"
 description = "The one and only Twitter meme bot"
 authors = ["hacksparr0w <hacksparr0w@protonmail.com>"]
 license = "MIT"
