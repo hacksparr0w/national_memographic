@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN pip install national_memography
+RUN pip install national_memographic
 
 CMD meme bot \
   --api-key $TW_API_KEY \
